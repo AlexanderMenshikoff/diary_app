@@ -1,6 +1,8 @@
-const Button = () => {
+import './Button.css';
+
+const Button = ({text}) => {
 	return (
-		<button className='button accent'>Сохранить</button>
+		<button className='button accent'>{text}</button>
 	);
 };
 
