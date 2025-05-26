@@ -1,6 +1,4 @@
-import JournalItem from './components/JournalItem/JournalItem';
 import './App.css';
-import CardButton from './components/CardButton/CardButton';
 import LeftPanel from './layout/LeftPanel/LeftPanel';
 import Body from './layout/Body/Body';
 import Header from './components/Header/Header';
@@ -13,6 +11,7 @@ function App() {
 	const data = [
 		
 		{
+			id:1,
 			title:'title',
 			date: new Date(),
 			text: 'yo'
@@ -26,34 +25,22 @@ function App() {
 		setFormData(prev => [...prev, {
 			title:item.title,
 			date:new Date(item.date),
-			text:item.text
+			text:item.text,
+			id: prev.length > 0 ? Math.max(...prev.map(el => el.id)) + 1 : 1
 		}]);
 	};
-
-
-	console.log(formData);
 
 	return (
 		<div className='app'>
 			<LeftPanel>
 				<Header/>
 				<JournalAddButton/>
-				<JournalList>
-					{formData.map(el => 
-						<CardButton key={el.date + 1}>
-							<JournalItem text={el.text} date={el.date} title={el.title}/>
-						</CardButton>
-					)}
-					
-				</JournalList>
+				<JournalList items = {formData}/>
 			</LeftPanel>
 
 			<Body>
 				<JournalForm onSubmit={addItem}/>
 			</Body>
-
-
-			
 		</div>
 	);
 }
